@@ -90,6 +90,7 @@
         <form action="/predict" method="POST" enctype="multipart/form-data" class="space-y-6" id="uploadForm">
             @csrf
             <!-- Patient Info Section -->
+            <input type="hidden" name="type" value="{{ $type ?? 'colon' }}">
             <div class="bg-gray-50 p-6 rounded-xl shadow-inner space-y-4">
                 <h2 class="text-xl font-semibold text-gray-800 flex items-center space-x-2">
                     <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">

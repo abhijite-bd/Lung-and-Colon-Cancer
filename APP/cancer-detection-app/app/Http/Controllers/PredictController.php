@@ -46,13 +46,13 @@ class PredictController extends Controller
     {
         $image = $request->file('image');
         $storedPath = $image->store('uploads', 'public');
-        $dtype = "lung";
+        $dtype = $request->type;
         // Decide Flask endpoint
+        // dd($request->type);
         $endpoint = $request->type === 'lung'
             ? 'http://127.0.0.1:5000/lung/predict'
             : 'http://127.0.0.1:5000/colon/predict';
 
-        $dtype = "colon";
         // Send image to Flask
         $response = Http::attach(
             'image',
@@ -73,7 +73,7 @@ class PredictController extends Controller
             'image_path'       => $storedPath
         ]);
         // dd($patient->confidence);
-
+        // dd($storedPath);
         // Pass data to result view
         return view('result', [
             'patient'    => $patient,

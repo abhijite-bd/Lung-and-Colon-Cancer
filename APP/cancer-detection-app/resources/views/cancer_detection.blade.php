@@ -4,11 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Patient Cancer Report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             line-height: 1.6;
             color: #333;
+            margin: -80px -50px;
+            padding: 0 20px;
         }
 
         .header {
@@ -20,10 +24,11 @@
         }
 
         .section {
-            margin: 20px 0;
+            margin: 0px 0;
             padding: 15px;
             border-radius: 8px;
             background-color: #f7f7f7;
+            page-break-inside: avoid;
         }
 
         .section h2 {
@@ -44,11 +49,13 @@
             max-width: 300px;
             border-radius: 10px;
             border: 1px solid #ccc;
+            display: block;
+            margin: 0 auto;
         }
 
         .confidence-bar-bg {
             width: 100%;
-            background-color: #f03d3dff;
+            background-color: #c68d8dff;
             height: 20px;
             border-radius: 10px;
             margin: 5px 0;
@@ -92,7 +99,14 @@
     <!-- Uploaded Image -->
     <div class="section image-container">
         <h2>Uploaded Image</h2>
-        <img src="{{ public_path('storage/'.$imagePath) }}" alt="Medical Image">
+        @php
+        $imageFullPath = storage_path('app/public/' . $imagePath);
+        @endphp
+        @if(file_exists($imageFullPath))
+        <img src="{{ $imageFullPath }}" alt="Medical Image">
+        @else
+        <p>Image not found</p>
+        @endif
     </div>
 
     <!-- Prediction Result -->
